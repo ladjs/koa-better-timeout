@@ -7,7 +7,7 @@
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
 [![license](https://img.shields.io/github/license/ladjs/koa-better-timeout.svg)](<>)
 
-> Response timeout middleware for Koa and Lad (uses Boom by default)
+> Response timeout middleware for [Koa][] and [Lad][] (uses [Boom][] by default)
 
 
 ## Table of Contents
@@ -104,3 +104,5 @@ The default option values use [Boom][] and are:
 [boom]: https://github.com/hapijs/boom
 
 [ladjs-i18n]: https://github.com/ladjs/i18n
+
+[koa]: http://koajs.com/
