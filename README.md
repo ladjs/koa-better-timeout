@@ -68,7 +68,7 @@ app.use(async (ctx, next) => {
 
 ## Options
 
-You can optinally pass an object of options to `Timeout(opts)`.
+You can optionally pass an object of options to `Timeout(opts)`.
 
 The default option values use [Boom][] and are:
 
