@@ -1,5 +1,7 @@
 # koa-better-timeout
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ladjs/koa-better-timeout.svg)](https://greenkeeper.io/)
+
 [![build status](https://img.shields.io/travis/ladjs/koa-better-timeout.svg)](https://travis-ci.org/ladjs/koa-better-timeout)
 [![code coverage](https://img.shields.io/codecov/c/github/ladjs/koa-better-timeout.svg)](https://codecov.io/gh/ladjs/koa-better-timeout)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
