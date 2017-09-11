@@ -43,7 +43,8 @@ const Timeout = require('koa-better-timeout');
 
 // ...
 
-app.use(new Timeout().middleware);
+const timeout = new Timeout();
+app.use(timeout.middleware.bind(timeout));
 ```
 
 > Advanced middleware usage (e.g. using [Lad][] and its [@ladjs/i18n][ladjs-i18n] middleware) with translated response message:
