@@ -1,4 +1,5 @@
 const Boom = require('boom');
+const autoBind = require('auto-bind');
 
 // inspired by `koa-timeout`
 // and refactored for async
@@ -19,6 +20,7 @@ class Timeout {
       throw new Error('timeout `message` was not a string');
     if (typeof this.config.sendResponse !== 'function')
       throw new Error('timeout `sendResponse` function is missing');
+    autoBind(this);
   }
   middleware(ctx, next) {
     ctx.req._timeout = null;
