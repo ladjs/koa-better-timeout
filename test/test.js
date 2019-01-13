@@ -1,7 +1,7 @@
 const test = require('ava');
 const Boom = require('boom');
 
-const Timeout = require('../');
+const Timeout = require('..');
 
 const next = () => {
   return new Promise(resolve => {
@@ -20,36 +20,55 @@ test('sets a default config object', t => {
   t.is(timeout.config.sendResponse, Boom.clientTimeout);
 });
 
-test('times out and sends response', async t => {
-  const timeout = new Timeout();
-  const ctx = { req: {} };
-  const error = await t.throws(
+test('sets a custom message with ctx', async t => {
+  const timeout = new Timeout({
+    message: ctx => {
+      t.true(typeof ctx === 'object');
+      return 'Hello world';
+    }
+  });
+  const ctx = { request: {} };
+  const error = await t.throwsAsync(
     timeout.middleware(ctx, () => {
       return new Promise(resolve => {
         setTimeout(resolve, 7000);
       });
     })
   );
-  t.true(ctx.req._timeout._called);
+  t.true(ctx.request._timeout._called);
+  t.is(error.message, 'Hello world');
+});
+
+test('times out and sends response', async t => {
+  const timeout = new Timeout();
+  const ctx = { request: {} };
+  const error = await t.throwsAsync(
+    timeout.middleware(ctx, () => {
+      return new Promise(resolve => {
+        setTimeout(resolve, 7000);
+      });
+    })
+  );
+  t.true(ctx.request._timeout._called);
   t.is(error.message, Boom.clientTimeout().message);
 });
 
 test('clears timeout after response', async t => {
   const timeout = new Timeout();
-  const ctx = { req: {} };
+  const ctx = { request: {} };
   await timeout.middleware(ctx, next);
-  t.false(ctx.req._timeout._called);
+  t.false(ctx.request._timeout._called);
 });
 
 test('clears timeout after error', async t => {
   const timeout = new Timeout();
-  const ctx = { req: {} };
-  const error = await t.throws(
+  const ctx = { request: {} };
+  const error = await t.throwsAsync(
     timeout.middleware(ctx, () => {
       return Promise.reject(new Error('done'));
     })
   );
-  t.false(ctx.req._timeout._called);
+  t.false(ctx.request._timeout._called);
   t.is(error.message, 'done');
 });
 
@@ -66,7 +85,7 @@ test('throws error if message not a string', t => {
     // eslint-disable-next-line no-new
     new Timeout({ message: false });
   });
-  t.is(error.message, 'timeout `message` was not a string');
+  t.is(error.message, 'timeout `message` was not a string nor function');
 });
 
 test('throws error if sendResponse not a function', t => {

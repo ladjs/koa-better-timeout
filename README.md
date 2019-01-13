@@ -54,16 +54,10 @@ const Timeout = require('koa-better-timeout');
 
 // ...
 
-app.use(async (ctx, next) => {
-  try {
-    const timeout = new Timeout({
-      message: ctx.translate('REQUEST_TIMED_OUT')
-    });
-    await timeout.middleware(ctx, next);
-  } catch (err) {
-    ctx.throw(err);
-  }
+const timeout = new Timeout({
+  message: ctx => ctx.translate('REQUEST_TIMED_OUT')
 });
+app.use(timeout.middleware);
 ```
 
 
@@ -80,6 +74,8 @@ The default option values use [Boom][] and are:
   sendResponse: Boom.clientTimeout
 }
 ```
+
+Note that `message` can be a function that accepts one argument `ctx`.  This is useful if you wish to use i18n translation for the response message.
 
 
 ## Contributors
