@@ -1,5 +1,5 @@
 const test = require('ava');
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 
 const Timeout = require('..');
 

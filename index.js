@@ -1,4 +1,4 @@
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const autoBind = require('auto-bind');
 
 // inspired by `koa-timeout`  and refactored for async
