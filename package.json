@@ -1,7 +1,7 @@
 {
   "name": "koa-better-timeout",
   "description": "Response timeout middleware for Koa and Lad (uses Boom by default)",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)",
   "bugs": {
     "url": "https://github.com/ladjs/koa-better-timeout/issues",
