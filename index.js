@@ -1,5 +1,4 @@
 const Boom = require('@hapi/boom');
-const autoBind = require('auto-bind');
 
 // inspired by `koa-timeout`  and refactored for async
 
@@ -20,14 +19,16 @@ class Timeout {
       throw new Error('timeout `message` was not a string nor function');
     if (typeof this.config.sendResponse !== 'function')
       throw new Error('timeout `sendResponse` function is missing');
-    autoBind(this);
+    this.middleware = this.middleware.bind(this);
   }
 
   middleware(ctx, next) {
     ctx.request._timeout = null;
+    ctx.request._timeoutCalled = false;
     return Promise.race([
       new Promise((resolve, reject) => {
         ctx.request._timeout = setTimeout(() => {
+          ctx.request._timeoutCalled = true;
           reject(
             this.config.sendResponse(
               typeof this.config.message === 'function'
